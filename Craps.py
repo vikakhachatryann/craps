@@ -1,18 +1,32 @@
 import random
-dice_1 = random.randint(1, 6)
-dice_2 = random.randint(1, 6)
 
-if dice_1 + dice_2 == 7 or dice_1 + dice_2 == 11:      # 7, 11
-    print('You Won!')
-elif dice_1 + dice_2 in [2, 3, 12]:                    # 2, 3, 12
-    print('You Lose.')
-else:                                                  # 4, 5, 6, 8, 9, 10
+def roll_dice():
+    return random.randint(1, 6), random.randint(1, 6)
+
+def play_game():
+    dice_1, dice_2 = roll_dice()
+    total = dice_1 + dice_2
+    print(f"First roll: {dice_1} + {dice_2} = {total}")
+
+    if total in [7, 11]:
+        print("You Won!")
+        return
+    elif total in [2, 3, 12]:
+        print("Craps! You Lose.")
+        return
+
+    goal = total
+    print(f"Goal point is: {goal}")
+
     while True:
-        dice_3 = random.randint(1,6)
-        dice_4 = random.randint(1,6)
-        if dice_3 + dice_4 == 7:
-            print('You Lose.')
+        d1, d2 = roll_dice()
+        current = d1 + d2
+        print(f"Roll: {d1} + {d2} = {current}")
+
+        if current == 7:
+            print("You Lose.")
             break
-        elif dice_3 + dice_4 == dice_2 + dice_1:
-            print('You Win!')
+        elif current == goal:
+            print("You Win!")
             break
+play_game()
